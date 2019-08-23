@@ -4,69 +4,68 @@ import pygeoip
 class FindLocation(object):
     def __init__(self):
         self.gi = pygeoip.GeoIP("./GeoLiteCity.dat")
-        # 创建主窗口,用于容纳其它组件
+        # Create a main window to accommodate other components
         self.root = tkinter.Tk()
-        # 给主窗口设置标题内容
-        self.root.title("全球定位ip位置(离线版)")
-        # 创建一个输入框,并设置尺寸
+        # Set the title content for the main window
+        self.root.title("Global positioning IP location (offline version)")
+        # Create an input box and set the size
         self.ip_input = tkinter.Entry(self.root,width=30)
 
-        # 创建一个回显列表
+        # Create an echo list
         self.display_info = tkinter.Listbox(self.root, width=50)
 
-        # 创建一个查询结果的按钮
-        self.result_button = tkinter.Button(self.root, command = self.find_position, text = "查询")
+        # Create a button for query results
+        self.result_button = tkinter.Button(self.root, command = self.find_position, text = "Check")
 
-    # 完成布局
+    # Complete the layout
     def gui_arrang(self):
         self.ip_input.pack()
         self.display_info.pack()
         self.result_button.pack()
 
-    # 根据ip查找地理位置
+    # Find geographic location based on IP
     def find_position(self):
-        # 获取输入信息
+        # Get input information
         self.ip_addr = self.ip_input.get()
         aim = self.gi.record_by_name(self.ip_addr)
-        # 为了避免非法值,导致程序崩溃,有兴趣可以用正则写一下具体的规则,我为了便于新手理解,减少代码量,就直接粗放的过滤了
+        
         try:
 
-            # 获取目标城市
+            # Acquisition of target cities
             city = aim["city"]
-            # 获取目标国家
+            # Acquisition of target countries
             country = aim["country_name"]
-            # 获取目标地区
+            # Acquisition of target areas
             region_code = aim["region_code"]
-            # 获取目标经度
+            # Obtaining the longitude of the target
             longitude = aim["longitude"]
-            # 获取目标纬度
+            # Acquire target latitude
             latitude = aim["latitude"]
         except:
             pass
         
-        # 创建临时列表
-        the_ip_info = ["所在纬度:"+str(latitude),"所在经度:"+str(longitude),"地域代号:"+str(region_code),"所在城市:"+str(city), "所在国家或地区:"+str(country), "需要查询的ip:"+str(self.ip_addr)]
-        #清空回显列表可见部分,类似clear命令
+        # Create temporary lists
+        the_ip_info = ["Latitude:"+str(latitude),"Longitude:"+str(longitude),"Regional code:"+str(region_code),"City:"+str(city), "Country or region:"+str(country), "IP:"+str(self.ip_addr)]
+        #Clear the visible part of the echo list, similar to the clear command
         for item in range(10):
             self.display_info.insert(0,"")
 
-        # 为回显列表赋值
+        # Assign values to the echo list
         for item in the_ip_info:
             self.display_info.insert(0,item)
-        # 这里的返回值,没啥用,就是为了好看
+        
         return the_ip_info
 
 
 def main():
-    # 初始化对象
+    # Initialization object
     FL = FindLocation()
-    # 进行布局
+    # Layout
     FL.gui_arrang()
-    # 主程序执行
+    # Main program execution
     tkinter.mainloop()
     pass
 
 
 if __name__ == "__main__":
     main()
-    
