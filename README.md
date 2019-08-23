@@ -115,7 +115,7 @@ Operation effect:
 
 
 
-> !(http://upload-images.jianshu.io/upload_images/3203841-53e9b6e7b63c6de0.gif?imageMogr2/auto-orient/strip)
+> ![GIF](http://upload-images.jianshu.io/upload_images/3203841-53e9b6e7b63c6de0.gif?imageMogr2/auto-orient/strip)
 
 
 
